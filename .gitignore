@@ -1,0 +1,11 @@
+target/*
+.classpath
+.project
+.settings/*
+bin/*
+MailConfiguration.json
+dummy.json
+/target/
+/bin/
+build/*
+dist/*
