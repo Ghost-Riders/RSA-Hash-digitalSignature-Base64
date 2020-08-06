@@ -12,38 +12,33 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class RSAExample {
-	private static final String PUBLIC_KEY_FILE = "Public.key";
-	private static final String PRIVATE_KEY_FILE = "Private.key";
+	private static final String PUBLIC_KEY_FILE = "rsaexamplepub.key";
+	private static final String PRIVATE_KEY_FILE = "rsaexamplepri.key";
 
-	public static void main(String[] args) throws IOException {
-		try {
-			System.out.println("---GENERATE PUBLIC and PRIVATE KEY-------");
-			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-			keyPairGenerator.initialize(1024);
-			KeyPair keyPair = keyPairGenerator.generateKeyPair();
-			PublicKey publicKey = keyPair.getPublic();
-			PrivateKey privateKey = keyPair.getPrivate();
-			System.out.println("-----PULLING OUT PARAMETERS WHICH MAKES KEYPAIR-----");
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-			RSAPublicKeySpec rsaPublicKeySpec = keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
-			RSAPrivateKeySpec rsaPrivateKeySpec = keyFactory.getKeySpec(privateKey, RSAPrivateKeySpec.class);
-
-			System.out.println("-----SAVING PUBLIC KEY AND PRIVATE KEY TO FILES-----");
-
-			RSAExample RSAObj = new RSAExample();
-
-			RSAObj.saveKeys(PUBLIC_KEY_FILE, rsaPublicKeySpec.getModulus(), rsaPublicKeySpec.getPublicExponent());
-			RSAObj.saveKeys(PRIVATE_KEY_FILE, rsaPrivateKeySpec.getModulus(), rsaPrivateKeySpec.getPrivateExponent());
-
-			// encrypt data using public key
-			byte[] encryptedData = RSAObj.encryptData("heello slkdflasjfkl");
-
-			// decrypt data using private key
-			RSAObj.decryptData(encryptedData);
-
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			System.out.println(e);
-		}
+	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+					System.out.println("---GENERATE PUBLIC and PRIVATE KEY-------");
+					KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+					keyPairGenerator.initialize(1024);
+					KeyPair keyPair = keyPairGenerator.generateKeyPair();
+					PublicKey publicKey = keyPair.getPublic();
+					PrivateKey privateKey = keyPair.getPrivate();
+					System.out.println("-----PULLING OUT PARAMETERS WHICH MAKES KEYPAIR-----");
+					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+					RSAPublicKeySpec rsaPublicKeySpec = keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
+					RSAPrivateKeySpec rsaPrivateKeySpec = keyFactory.getKeySpec(privateKey, RSAPrivateKeySpec.class);
+		
+					System.out.println("-----SAVING PUBLIC KEY AND PRIVATE KEY TO FILES-----");
+		
+					RSAExample RSAObj = new RSAExample();
+		
+					RSAObj.saveKeys(PUBLIC_KEY_FILE, rsaPublicKeySpec.getModulus(), rsaPublicKeySpec.getPublicExponent());
+					RSAObj.saveKeys(PRIVATE_KEY_FILE, rsaPrivateKeySpec.getModulus(), rsaPrivateKeySpec.getPrivateExponent());
+		
+					// encrypt data using public key
+					byte[] encryptedData = RSAObj.encryptData("heello slkdflasjfkl");
+		
+					// decrypt data using private key
+					RSAObj.decryptData(encryptedData);
 	}
 
 	private void saveKeys(String fileName, BigInteger mod, BigInteger exp) throws IOException {
