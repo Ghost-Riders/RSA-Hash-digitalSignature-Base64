@@ -27,7 +27,7 @@ public class DigitalSignatureWithMessageDigestAndCipherSigning {
 		Cipher cipher = Cipher.getInstance("RSA");
 		cipher.init(Cipher.ENCRYPT_MODE, privateKey);
 		byte[] digitalSignature = cipher.doFinal(messageBytes);
-
+System.out.println(new String(digitalSignature));
 		Files.write(Paths.get("target/digital_signature_1"), digitalSignature);
 	}
 }
